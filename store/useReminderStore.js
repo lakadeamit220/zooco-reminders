@@ -29,7 +29,7 @@ export const useReminderStore = create(
         })),
     }),
     {
-      name: 'zooco-reminders-storage',
+      name: 'zooco-reminders-pune-storage',
     }
   )
 );

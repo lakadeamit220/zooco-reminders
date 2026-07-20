@@ -1,7 +1,7 @@
 export const mockReminders = [
   {
     id: '1',
-    title: 'Morning Walk',
+    title: 'Morning Walk at Shivaji Nagar',
     time: '07:30',
     iconName: 'Activity',
     completed: false,
@@ -9,7 +9,7 @@ export const mockReminders = [
   },
   {
     id: '2',
-    title: 'Feed Breakfast',
+    title: 'Feed Breakfast to Sheru',
     time: '08:00',
     iconName: 'Bone',
     completed: true,
@@ -17,7 +17,7 @@ export const mockReminders = [
   },
   {
     id: '3',
-    title: 'Give Medication',
+    title: 'Vet Checkup in Kalyani Nagar',
     time: '14:00',
     iconName: 'Pill',
     completed: false,
@@ -25,7 +25,7 @@ export const mockReminders = [
   },
   {
     id: '4',
-    title: 'Evening Walk',
+    title: 'Evening Walk in Koregaon Park',
     time: '18:30',
     iconName: 'Activity',
     completed: false,
