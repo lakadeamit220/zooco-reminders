@@ -2,12 +2,9 @@
 
 import { useState } from 'react';
 import Header from '@/components/layout/Header';
-import StreakCounter from '@/components/ui/StreakCounter';
 import CalendarStrip from '@/components/ui/CalendarStrip';
-import FilterBar from '@/components/ui/FilterBar';
 import ReminderList from '@/components/reminders/ReminderList';
 import EmptyState from '@/components/ui/EmptyState';
-import FAB from '@/components/ui/FAB';
 import ReminderModal from '@/components/reminders/ReminderModal';
 import BottomNav from '@/components/layout/BottomNav';
 import { useReminders } from '@/hooks/useReminders';
@@ -16,10 +13,10 @@ export default function Home() {
   const {
     selectedDate,
     setSelectedDate,
-    currentFilter,
-    setCurrentFilter,
-    groupedReminders,
-    totalFilteredCount,
+    pendingReminders,
+    completedReminders,
+    getTimeSlot,
+    totalCount,
     toggleReminder,
     deleteReminder,
     addReminder,
@@ -49,35 +46,30 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-bg-page flex flex-col relative pb-20">
-      <Header selectedDate={selectedDate} />
-      
-      {/* Dynamic Streak Counter */}
-      <div className="px-6 pb-2 -mt-2">
-        <StreakCounter />
-      </div>
+      <Header />
 
-      {/* Navigation and Filters */}
+      {/* Calendar + Streak Container */}
       <CalendarStrip selectedDate={selectedDate} onSelectDate={setSelectedDate} />
-      <FilterBar currentFilter={currentFilter} onFilterChange={setCurrentFilter} />
-      
+
       {/* Scrollable Content Area */}
       <div className="flex-1 overflow-y-auto w-full max-w-md mx-auto">
-        {totalFilteredCount > 0 ? (
-          <ReminderList 
-            groupedReminders={groupedReminders} 
-            onToggle={toggleReminder} 
-            onCardClick={handleOpenEdit} 
+        {totalCount > 0 ? (
+          <ReminderList
+            pendingReminders={pendingReminders}
+            completedReminders={completedReminders}
+            getTimeSlot={getTimeSlot}
+            onToggle={toggleReminder}
+            onCardClick={handleOpenEdit}
           />
         ) : (
-          <EmptyState filter={currentFilter} />
+          <EmptyState filter="All" />
         )}
       </div>
 
-      {/* Floating UI */}
-      <FAB onClick={handleOpenAdd} />
-      <BottomNav />
+      {/* Bottom Navigation with integrated + reminders button */}
+      <BottomNav onAddReminder={handleOpenAdd} />
 
-      {/* Modals */}
+      {/* Add/Edit Reminder Modal */}
       <ReminderModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

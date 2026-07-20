@@ -1,41 +1,56 @@
 'use client';
 
-import { Calendar, Bell, Settings } from 'lucide-react';
+import { Home, Heart, BarChart3, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function BottomNav() {
+export default function BottomNav({ onAddReminder }) {
   const pathname = usePathname();
 
-  const tabs = [
-    { name: 'Today', href: '/', icon: Calendar },
-    { name: 'Activity', href: '/activity', icon: Bell },
-    { name: 'Settings', href: '/settings', icon: Settings },
+  const leftTabs = [
+    { name: 'Home', href: '/', icon: Home },
+    { name: 'Favorites', href: '/favorites', icon: Heart },
   ];
 
-  return (
-    <nav className="fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-100 pb-[max(env(safe-area-inset-bottom,12px),12px)] pt-3 shadow-[0_-2px_12px_rgba(0,0,0,0.03)] z-30">
-      {/* We leave the right-most area slightly open so it doesn't clash with the FAB */}
-      <div className="flex justify-between items-center w-[65%] ml-6">
-        {tabs.map((tab) => {
-          const Icon = tab.icon;
-          const isActive = pathname === tab.href;
+  const rightTabs = [
+    { name: 'Stats', href: '/stats', icon: BarChart3 },
+    { name: 'Profile', href: '/profile', icon: User },
+  ];
 
-          return (
-            <Link 
-              key={tab.name} 
-              href={tab.href}
-              className={`flex flex-col items-center justify-center space-y-1 transition-all duration-300 ${
-                isActive ? 'text-brand-green scale-105' : 'text-gray-400 hover:text-gray-600'
-              }`}
-            >
-              <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-              <span className={`text-[11px] font-medium tracking-tight ${isActive ? 'font-bold' : ''}`}>
-                {tab.name}
-              </span>
-            </Link>
-          );
-        })}
+  const renderTab = (tab) => {
+    const Icon = tab.icon;
+    const isActive = pathname === tab.href;
+    return (
+      <Link
+        key={tab.name}
+        href={tab.href}
+        className={`flex flex-col items-center justify-center space-y-0.5 transition-all duration-200 ${
+          isActive ? 'text-brand-green' : 'text-gray-400 hover:text-gray-600'
+        }`}
+      >
+        <Icon size={22} strokeWidth={isActive ? 2.5 : 1.8} />
+        <span className={`text-[10px] font-medium tracking-tight ${isActive ? 'font-semibold' : ''}`}>
+          {tab.name}
+        </span>
+      </Link>
+    );
+  };
+
+  return (
+    <nav className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 pb-[max(env(safe-area-inset-bottom,8px),8px)] pt-2.5 shadow-[0_-2px_12px_rgba(0,0,0,0.04)] z-30">
+      <div className="flex items-center justify-around max-w-md mx-auto px-4">
+        {leftTabs.map(renderTab)}
+
+        {/* Center "+ reminders" capsule button */}
+        <button
+          onClick={onAddReminder}
+          className="flex items-center space-x-1.5 bg-gray-900 text-white px-5 py-2.5 rounded-full text-[13px] font-semibold tracking-tight shadow-md hover:bg-gray-800 active:scale-95 transition-all -mt-1"
+        >
+          <span className="text-[16px] leading-none">+</span>
+          <span>reminders</span>
+        </button>
+
+        {rightTabs.map(renderTab)}
       </div>
     </nav>
   );

@@ -2,41 +2,46 @@
 
 import { useState, useMemo } from 'react';
 import { useReminderStore } from '@/store/useReminderStore';
-import { getRemindersForDate, groupRemindersByTimeSlot } from '@/lib/utils';
+import { getRemindersForDate } from '@/lib/utils';
 
 export function useReminders() {
   const store = useReminderStore();
-  
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [currentFilter, setCurrentFilter] = useState('All'); // 'All', 'Pending', 'Completed'
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
 
   // 1. Filter by selected date
   const dateFilteredReminders = useMemo(() => {
-    return getRemindersForDate(store.reminders, selectedDate.toISOString());
+    return getRemindersForDate(store.reminders, selectedDate);
   }, [store.reminders, selectedDate]);
 
-  // 2. Filter by status (All, Pending, Completed)
-  const statusFilteredReminders = useMemo(() => {
-    return dateFilteredReminders.filter((reminder) => {
-      if (currentFilter === 'Pending') return !reminder.completed;
-      if (currentFilter === 'Completed') return reminder.completed;
-      return true; // 'All'
-    });
-  }, [dateFilteredReminders, currentFilter]);
+  // 2. Separate into pending and completed
+  const pendingReminders = useMemo(() => {
+    return dateFilteredReminders
+      .filter((r) => !r.completed)
+      .sort((a, b) => a.time.localeCompare(b.time));
+  }, [dateFilteredReminders]);
 
-  // 3. Group by time slots (Morning, Afternoon, Evening, Night)
-  const groupedReminders = useMemo(() => {
-    return groupRemindersByTimeSlot(statusFilteredReminders);
-  }, [statusFilteredReminders]);
+  const completedReminders = useMemo(() => {
+    return dateFilteredReminders
+      .filter((r) => r.completed)
+      .sort((a, b) => a.time.localeCompare(b.time));
+  }, [dateFilteredReminders]);
+
+  // 3. Get the time slot label for the first pending reminder group
+  const getTimeSlot = (time) => {
+    const hour = parseInt(time.split(':')[0], 10);
+    if (hour >= 5 && hour < 12) return { label: 'morning', icon: 'Sunrise' };
+    if (hour >= 12 && hour < 17) return { label: 'afternoon', icon: 'Sun' };
+    if (hour >= 17 && hour < 21) return { label: 'evening', icon: 'Sunset' };
+    return { label: 'night', icon: 'Moon' };
+  };
 
   return {
     selectedDate,
     setSelectedDate,
-    currentFilter,
-    setCurrentFilter,
-    groupedReminders,
-    totalFilteredCount: statusFilteredReminders.length,
-    // Expose store actions for convenience
+    pendingReminders,
+    completedReminders,
+    getTimeSlot,
+    totalCount: dateFilteredReminders.length,
     toggleReminder: store.toggleReminder,
     deleteReminder: store.deleteReminder,
     addReminder: store.addReminder,
