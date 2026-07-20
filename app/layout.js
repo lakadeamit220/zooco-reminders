@@ -5,7 +5,6 @@ export const metadata = {
   title: 'ZOOCO Daily Reminders',
   description: 'Stay on top of your pet care routines',
   manifest: '/manifest.json',
-  themeColor: '#4CAF50',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -20,6 +19,7 @@ export const metadata = {
 };
 
 export const viewport = {
+  themeColor: '#4CAF50',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -30,7 +30,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>

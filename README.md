@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ZOOCO Daily Reminders
+
+A modern, responsive Progressive Web Application (PWA) built for pet parents to track and manage their daily pet care routines.
+
+## Features
+
+- **Core CRUD**: Create, Read, Update, and Delete daily reminders.
+- **Smart Grouping**: Reminders automatically group into Morning, Afternoon, Evening, and Night blocks based on their scheduled time.
+- **Dynamic Calendar Strip**: A horizontally scrollable 14-day calendar to quickly switch between dates.
+- **Filter States**: Effortlessly toggle between All, Pending, and Completed tasks.
+- **Streak Tracking**: Built-in state management tracks completed routines to build a persistent streak.
+- **PWA Ready**: Can be installed on mobile devices for a native app-like experience.
+- **Responsive UI**: Carefully crafted mobile-first layout based on Figma designs, styled with Tailwind CSS v4.
+- **Smooth Animations**: High-quality micro-interactions and transitions powered by Framer Motion.
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS v4
+- **State Management**: Zustand (with LocalStorage Persistence)
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Date Utilities**: Date-fns
+- **Notifications**: React Hot Toast
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/app`: Next.js App Router layout and main pages.
+- `/components`: Reusable UI elements, grouped by domain (`layout`, `ui`, `reminders`).
+- `/data`: Initial mock data for the application state.
+- `/hooks`: Custom React hooks, including the central `useReminders` hook for state logic.
+- `/store`: Zustand global state management setup with persistence.
+- `/lib`: Helper functions for date formatting and time-block math.
 
-## Learn More
+## Design Decisions
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Professional Tone**: Eliminated emojis in favor of high-quality SVG icons from Lucide React to ensure the UI feels native and professional.
+- **Mobile First**: Built exclusively with mobile web in mind, utilizing safe area padding (`pb-safe`) for modern iOS devices and a Bottom Navigation bar.
+- **Framer Motion**: Integrated to provide high-end, tactile feedback on button presses and modal slides, a critical requirement for modern, delightful PWAs.

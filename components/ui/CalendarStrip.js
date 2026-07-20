@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { generateCalendarDays } from '@/lib/utils';
+import { isSameDay } from 'date-fns';
 
 export default function CalendarStrip({ selectedDate, onSelectDate }) {
   // Generate 14 days centered around the selected date
@@ -25,7 +26,7 @@ export default function CalendarStrip({ selectedDate, onSelectDate }) {
         className="flex space-x-3 overflow-x-auto hide-scrollbar snap-x snap-mandatory pb-2"
       >
         {days.map((day, idx) => {
-          const isSelected = day.fullDate.split('T')[0] === new Date(selectedDate).toISOString().split('T')[0];
+          const isSelected = isSameDay(new Date(day.fullDate), new Date(selectedDate));
           
           return (
             <button
