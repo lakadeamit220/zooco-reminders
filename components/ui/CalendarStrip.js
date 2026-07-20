@@ -64,7 +64,7 @@ export default function CalendarStrip({ selectedDate, onSelectDate }) {
                     isSelected
                       ? 'bg-white text-green-700 shadow-md'
                       : 'bg-white/15 text-white hover:bg-white/25'
-                  }`}
+                  } ${day.isPast && !isSelected ? 'line-through decoration-white/70 text-white/60' : ''}`}
                 >
                   {day.dayNumber}
                 </div>

@@ -24,7 +24,7 @@ export default function ReminderCard({ reminder, onToggle, onClick }) {
       whileTap={{ scale: 0.97 }}
       className={`relative w-full rounded-[16px] p-4 mb-3 flex items-start justify-between transition-all duration-300 border ${
         isCompleted
-          ? 'bg-green-50/50 border-green-100'
+          ? 'bg-[#F2F2F2] border-[#F2F2F2] shadow-none'
           : 'bg-white border-gray-100 shadow-[0_1px_4px_rgba(0,0,0,0.04)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)]'
       }`}
       onClick={() => onClick && onClick(reminder)}
@@ -32,7 +32,7 @@ export default function ReminderCard({ reminder, onToggle, onClick }) {
       <div className="flex-1 pr-4">
         {/* Title */}
         <h3 className={`text-[16px] font-semibold tracking-tight mb-2 ${
-          isCompleted ? 'text-gray-400 line-through decoration-green-400/60 decoration-2' : 'text-gray-900'
+          isCompleted ? 'text-gray-500 line-through decoration-gray-500 decoration-1' : 'text-gray-900'
         }`}>
           {reminder.title}
         </h3>
@@ -72,7 +72,7 @@ export default function ReminderCard({ reminder, onToggle, onClick }) {
         }}
         className={`flex-shrink-0 mt-1 flex items-center justify-center w-7 h-7 rounded-full border-[2px] transition-all duration-300 ${
           isCompleted
-            ? 'bg-brand-green border-brand-green text-white'
+            ? 'bg-gray-800 border-gray-800 text-white'
             : 'border-gray-300 bg-transparent hover:border-brand-green'
         }`}
       >
