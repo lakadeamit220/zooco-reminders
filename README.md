@@ -1,5 +1,7 @@
 # ZOOCO Daily Reminders
 
+**Live Demo**: [https://zooco-reminders-two.vercel.app/](https://zooco-reminders-two.vercel.app/)
+
 A modern, responsive Progressive Web Application (PWA) built for pet parents to track and manage their daily pet care routines.
 
 ## Features
@@ -23,27 +25,47 @@ A modern, responsive Progressive Web Application (PWA) built for pet parents to 
 - **Date Utilities**: Date-fns
 - **Notifications**: React Hot Toast
 
-## Getting Started
+---
 
-First, install the dependencies:
+## How to Run Locally
 
+If you'd like to evaluate the project on your local machine, follow these steps:
+
+### 1. Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine. We recommend Node v18 or newer.
+
+### 2. Clone the Repository
+Clone this repository to your local machine:
+```bash
+git clone https://github.com/lakadeamit220/zooco-reminders.git
+cd zooco-reminders
+```
+
+### 3. Install Dependencies
+Run the following command in the project root to install all required packages:
 ```bash
 npm install
 ```
 
-Then, run the development server:
-
+### 4. Start the Development Server
+Next, start the local Next.js development server:
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 5. View the App
+Open your browser and navigate to:
+[http://localhost:3000](http://localhost:3000)
+
+*Note: For the best experience, open the Chrome Developer Tools, toggle the Device Toolbar (Ctrl+Shift+M / Cmd+Shift+M), and view the app in a mobile viewport (e.g., iPhone 14 Pro max).*
+
+---
 
 ## Project Structure
 
 - `/app`: Next.js App Router layout and main pages.
 - `/components`: Reusable UI elements, grouped by domain (`layout`, `ui`, `reminders`).
-- `/data`: Initial mock data for the application state.
+- `/data`: Initial mock data for the application state (Localized for Pune, MH).
 - `/hooks`: Custom React hooks, including the central `useReminders` hook for state logic.
 - `/store`: Zustand global state management setup with persistence.
 - `/lib`: Helper functions for date formatting and time-block math.
